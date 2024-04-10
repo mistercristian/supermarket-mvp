@@ -21,5 +21,10 @@ namespace Supermarket_mvp.Views
         {
 
         }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
