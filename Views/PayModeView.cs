@@ -80,7 +80,7 @@ namespace Supermarket_mvp.Views
         {
             DgPayMode.DataSource = payModeList;
         }
-
+       
         private static PayModeView instance;
 
         public static PayModeView GetInstance(Form parentContainer)
@@ -114,6 +114,52 @@ namespace Supermarket_mvp.Views
                 {
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
+            };
+            BtnNew.Click += delegate { 
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(tabPagePayModeList);
+                tabControl1.TabPages.Add(tabPagePayModeDetail);
+                tabPagePayModeDetail.Text = "Agregar Metodo de Pago";
+             
+            };
+            BtnEdit.Click += delegate { 
+                EditEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPagePayModeList);
+                tabControl1.TabPages.Add(tabPagePayModeDetail);
+                tabPagePayModeDetail.Text = "Editar Modo de Pago";
+            };
+            BtnDelete.Click += delegate 
+            {
+                var result = MessageBox.Show("Esta seguro que desea borrar el metodo de pago seleccionado",
+                    "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes) 
+                {
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(message);
+                }
+                DeleteEvent?.Invoke(this, EventArgs.Empty); 
+
+
+            
+            };
+            BtnSave.Click += delegate { 
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(tabPagePayModeList);
+                    tabControl1.TabPages.Add(tabPagePayModeDetail);
+                }
+                MessageBox.Show(Message);
+            };
+            BtnCancel.Click += delegate 
+            { 
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPagePayModeList);
+                tabControl1.TabPages.Add(tabPagePayModeDetail);
+
             };
         }
     }
