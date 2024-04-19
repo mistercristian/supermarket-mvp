@@ -299,6 +299,7 @@
             Controls.Add(panel1);
             Name = "CategoriaView";
             Text = "Categoria Management";
+            Load += CategoriaView_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
