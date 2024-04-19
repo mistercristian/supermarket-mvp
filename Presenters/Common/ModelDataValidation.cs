@@ -11,7 +11,7 @@ namespace Supermarket_mvp.Presenters.Common
     {
         public void Validate(object model)
         {
-            string errorMessage = "";
+            string errorMessage = "primer";
             List<ValidationResult> validationResults = new List<ValidationResult>();
             ValidationContext validationContext = new ValidationContext(model);
             bool isValid = Validator.TryValidateObject(model, validationContext, validationResults, true);
@@ -19,7 +19,7 @@ namespace Supermarket_mvp.Presenters.Common
             {
              foreach (var item in validationResults) 
                 {
-                    errorMessage += item.ErrorMessage + "\n";
+                    errorMessage += item.ErrorMessage + "\nsegundo";
                 }
              throw new Exception(errorMessage);
             }

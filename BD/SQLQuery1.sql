@@ -1,10 +1,11 @@
 ﻿use Supermarket
-create table PayMode
+create table Providers
 (
-Pay_Mode_Id int identity (100000, 1) primary key,
-Pay_Mode_Name nvarchar (50) not null,
-Pay_Mode_Observation nvarchar (50) not null,
+Provider_Id int identity (10, 1) primary key,
+Provider_Name nvarchar (50) not null,
+Provider_Observation nvarchar (50) not null,
 )
 go
-insert into  PayMode values ('Cash','cash mode')
-insert into PayMode values ('Credit card', 'Credit card mode')
+insert into  Providers values ('Cristian Guzman','Proveedor Tecnologia')
+insert into Providers values ('Estefania Guerrero', 'Proveedor Hogar')
+insert into Providers values ('Lyan Guzman', 'Proveedor VideoJuegos')

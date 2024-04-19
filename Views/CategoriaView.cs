@@ -21,6 +21,7 @@ namespace Supermarket_mvp.Views
             AssociateAndRaiseViewEvents();
 
             tabControl1.TabPages.Remove(tabPageCategoriaDetail);
+            BtnClose.Click += delegate { this.Close(); };
         }
         public string CategoriaId 
         {
@@ -80,6 +81,60 @@ namespace Supermarket_mvp.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+
+            BtnNew.Click += delegate {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageCategoriaList);
+                tabControl1.TabPages.Add(tabPageCategoriaDetail);
+                tabPageCategoriaDetail.Text = "Agregar Nueva Categoria";
+
+            };
+
+            BtnEdit.Click += delegate {
+                EditEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageCategoriaList);
+                tabControl1.TabPages.Add(tabPageCategoriaDetail);
+                tabPageCategoriaDetail.Text = "Editar Categoria";
+
+            };
+
+            BtnDelete.Click += delegate {
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+
+                var result = MessageBox.Show(
+                    "Esta seguro que desea eliminar la categoria seleccionada",
+                    "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+
+            };
+
+            BtnSave.Click += delegate {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+
+                if (isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(tabPageCategoriaDetail);
+                    tabControl1.TabPages.Add(tabPageCategoriaList);
+                }
+                MessageBox.Show(Message);
+
+            };
+
+            BtnCancel.Click += delegate {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageCategoriaDetail);
+                tabControl1.TabPages.Add(tabPageCategoriaList);
+            };
+
         }
 
 

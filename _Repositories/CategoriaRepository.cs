@@ -1,12 +1,6 @@
-﻿using Supermarket_mvp.Models;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Data.SqlClient;
+using Supermarket_mvp.Models;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
-using Microsoft.Data;
 
 
 namespace Supermarket_mvp._Repositories
@@ -21,17 +15,50 @@ namespace Supermarket_mvp._Repositories
 
         public void Add(CategoriaModel categoriaModel)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO Providers VALUES (@name, @observation)";
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = categoriaModel.Name;
+                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value = categoriaModel.Observation;
+                command.ExecuteNonQuery();
+            }
+
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM CatMode WHERE Cat_Mode_Id = @id";
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery();
+            }
+
         }
 
         public void Edit(CategoriaModel categoriaModel)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE CatMode 
+                            SET Cat_Mode_Name = @name, 
+                            Cat_Mode_Observation = @observation 
+                            WHERE Cat_Mode_Id = @id";
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = categoriaModel.Name;
+                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value = categoriaModel.Observation;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = categoriaModel.Id;
+                command.ExecuteNonQuery();
+            }
+
         }
 
         public IEnumerable<CategoriaModel> GetAll()
@@ -50,8 +77,7 @@ namespace Supermarket_mvp._Repositories
                         var categoriaModel = new CategoriaModel();
                         categoriaModel.Id = (int)reader["Cat_Mode_Id"];
                         categoriaModel.Name = reader["Cat_Mode_Name"].ToString();
-                        categoriaModel.Observation =
-    reader["Cat_Mode_Observation"].ToString();
+                        categoriaModel.Observation = reader["Cat_Mode_Observation"].ToString();
                         categoriaList.Add(categoriaModel);
                     }
                 }
@@ -73,8 +99,7 @@ namespace Supermarket_mvp._Repositories
                                     WHERE Cat_Mode_Id=@id or Cat_Mode_Name LIKE @name+ '%'
                                     ORDER BY Cat_Mode_Id DESC";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = categoriaId;
-                command.Parameters.Add("@name", SqlDbType.NVarChar).Value =
-    categoriaName;
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = categoriaName;
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -82,8 +107,7 @@ namespace Supermarket_mvp._Repositories
                         var categoriaModel = new CategoriaModel();
                         categoriaModel.Id = (int)reader["Cat_Mode_Id"];
                         categoriaModel.Name = reader["Cat_Mode_Name"].ToString();
-                        categoriaModel.Observation =
-    reader["Cat_Mode_Observation"].ToString();
+                        categoriaModel.Observation = reader["Cat_Mode_Observation"].ToString();
                         categoriaList.Add(categoriaModel);
                     }
                 }

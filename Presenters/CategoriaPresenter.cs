@@ -46,27 +46,84 @@ namespace Supermarket_mvp.Presenters
 
         private void CancelAction(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            CleanViewFields();
         }
 
         private void SaveCategoria(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var categoria = new CategoriaModel();
+            categoria.Id = Convert.ToInt32(view.CategoriaId);
+            categoria.Name = view.CategoriaName;
+            categoria.Observation = view.CategoriaObservation;
+
+            try
+            {
+                new Common.ModelDataValidation().Validate(categoria);
+
+                if (view.IsEdit)
+                {
+                    repository.Edit(categoria);
+                    view.Message = "Categoria Editada de manera correcta";
+                }
+                else
+                {
+                    repository.Add(categoria);
+                    view.Message = "Categoria agregada de manera correcta";
+                }
+                view.IsSuccessful = true;
+                loadAllCategoriaList();
+                CleanViewFields();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
+        }
+            
+        private void CleanViewFields()
+        {
+            view.CategoriaId = "0";
+            view.CategoriaName = "";
+            view.CategoriaObservation = "";
         }
 
-        private void DeleteSeletedCategoria(object? sender, EventArgs e)
+    
+
+    private void DeleteSeletedCategoria(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var provider = (CategoriaModel)categoriaBindingSource.Current;
+
+                repository.Delete(provider.Id);
+                view.IsSuccessful = true;
+                view.Message = "Categoria eliminada con exito";
+                loadAllCategoriaList();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "An error ocurred, could not delete categoria";
+            }
+
         }
 
         private void LoadSelectCategoriaToEdit(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var categoria = (CategoriaModel)categoriaBindingSource.Current;
+
+            view.CategoriaId = categoria.Id.ToString();
+            view.CategoriaName = categoria.Name;
+            view.CategoriaObservation = categoria.Observation;
+
+            view.IsEdit = true;
+
         }
 
         private void AddNewCategoria(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            view.IsEdit = false;
         }
 
         private void SearchCategoria(object? sender, EventArgs e)
