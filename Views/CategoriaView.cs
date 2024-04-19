@@ -158,6 +158,8 @@ namespace Supermarket_mvp.Views
             DgCategoria.DataSource = categoriaList;
         }
 
+
+
         private static CategoriaView instance;
         public static CategoriaView GetInstance(Form parentContainer)
         {
@@ -179,6 +181,8 @@ namespace Supermarket_mvp.Views
             }
             return instance;
         }
+
+
 
     }
 }
