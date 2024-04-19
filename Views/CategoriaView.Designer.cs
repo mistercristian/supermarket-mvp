@@ -120,6 +120,7 @@
             // 
             // BtnClose
             // 
+            BtnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnClose.BackColor = Color.LightGray;
             BtnClose.Image = Properties.Resources.cerrar;
             BtnClose.Location = new Point(645, 235);
@@ -130,6 +131,7 @@
             // 
             // BtnDelete
             // 
+            BtnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnDelete.BackColor = Color.LightGray;
             BtnDelete.Image = Properties.Resources.delete;
             BtnDelete.Location = new Point(645, 183);
@@ -140,6 +142,7 @@
             // 
             // BtnEdit
             // 
+            BtnEdit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnEdit.BackColor = Color.LightGray;
             BtnEdit.Image = Properties.Resources.edit;
             BtnEdit.Location = new Point(645, 131);
@@ -150,6 +153,7 @@
             // 
             // BtnNew
             // 
+            BtnNew.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnNew.BackColor = Color.LightGray;
             BtnNew.Image = Properties.Resources._new;
             BtnNew.Location = new Point(645, 77);
@@ -173,6 +177,7 @@
             // 
             // BtnSearch
             // 
+            BtnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnSearch.Image = Properties.Resources.search_small2;
             BtnSearch.Location = new Point(645, 27);
             BtnSearch.Name = "BtnSearch";
@@ -182,6 +187,7 @@
             // 
             // TxtSearch
             // 
+            TxtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             TxtSearch.Location = new Point(21, 35);
             TxtSearch.Name = "TxtSearch";
             TxtSearch.PlaceholderText = "Data to Search";
