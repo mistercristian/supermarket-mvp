@@ -87,7 +87,7 @@ namespace Supermarket_mvp.Views
 
                 tabControl1.TabPages.Remove(tabPageCategoriaList);
                 tabControl1.TabPages.Add(tabPageCategoriaDetail);
-                tabPageCategoriaDetail.Text = "Agregar Nueva Categoria";
+                tabPageCategoriaDetail.Text = "Add New Categoria";
 
             };
 
@@ -96,7 +96,7 @@ namespace Supermarket_mvp.Views
 
                 tabControl1.TabPages.Remove(tabPageCategoriaList);
                 tabControl1.TabPages.Add(tabPageCategoriaDetail);
-                tabPageCategoriaDetail.Text = "Editar Categoria";
+                tabPageCategoriaDetail.Text = "Edit Categoria";
 
             };
 

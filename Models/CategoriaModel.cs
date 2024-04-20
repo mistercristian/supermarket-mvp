@@ -13,19 +13,19 @@ namespace Supermarket_mvp.Models
         [DisplayName("Categoria Id")]
         public int Id { get; set; }
 
-        [DisplayName("Categoria Name")]
-        [Required(ErrorMessage = "El Nombre de la Categoria es Requerido")]
+        [DisplayName("Nombre Categoria")]
+        [Required(ErrorMessage = "Nombre de Categoria requerido")]
         [StringLength(50, MinimumLength = 3,
-            ErrorMessage = "El nombre debe de tener entre 3 y 50 caratcteres ")]
+            ErrorMessage = "Categoria name must be between 3 and 50 characters ")]
         public string Name { get; set; }
 
         [DisplayName("Categoria Observation")]
-        [Required(ErrorMessage = "Las Categorias son requeridas")]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = 
-            "La Categoria debe de tener entre 3 y 200 caratcteres")]
+        [Required(ErrorMessage = "Categoria observation is required")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage =
+            "Categoria observation must be between 3 and 200 characters ")]
         public string Observation { get; set; }
-    
 
 
-}
+
+    }
 }

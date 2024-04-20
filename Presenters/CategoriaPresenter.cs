@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Supermarket_mvp.Views;
 using Supermarket_mvp.Models;
+using Supermarket_mvp.Views;
 
 
 namespace Supermarket_mvp.Presenters
@@ -63,12 +63,12 @@ namespace Supermarket_mvp.Presenters
                 if (view.IsEdit)
                 {
                     repository.Edit(categoria);
-                    view.Message = "Categoria Editada de manera correcta";
+                    view.Message = "categoria edited successfuly";
                 }
                 else
                 {
                     repository.Add(categoria);
-                    view.Message = "Categoria agregada de manera correcta";
+                    view.Message = "Categoria added successfuly";
                 }
                 view.IsSuccessful = true;
                 loadAllCategoriaList();

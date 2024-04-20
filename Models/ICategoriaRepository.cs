@@ -11,7 +11,6 @@ namespace Supermarket_mvp.Models
         void Add(CategoriaModel categoriaModel);
         void Edit(CategoriaModel categoriaModel);
         void Delete(int id);
-
         IEnumerable<CategoriaModel> GetAll();
         IEnumerable<CategoriaModel> GetByValue(string value);
     }

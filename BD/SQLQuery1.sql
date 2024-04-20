@@ -1,11 +1,11 @@
 ﻿use Supermarket
-create table Providers
+create table Product
 (
-Provider_Id int identity (10, 1) primary key,
-Provider_Name nvarchar (50) not null,
-Provider_Observation nvarchar (50) not null,
+Product_Id int identity (20, 1) primary key,
+Product_Name nvarchar (50) not null,
+Product_Observation nvarchar (50) not null,
 )
 go
-insert into  Providers values ('Cristian Guzman','Proveedor Tecnologia')
-insert into Providers values ('Estefania Guerrero', 'Proveedor Hogar')
-insert into Providers values ('Lyan Guzman', 'Proveedor VideoJuegos')
+insert into  Product values ('Coca-Cola','Lo mejor de lo mejor')
+insert into Product values ('Chocolatina Yet', 'Chocolatina para tomar calorias')
+insert into Product values ('Cerveza Corona', 'Cerveza por excelencia')

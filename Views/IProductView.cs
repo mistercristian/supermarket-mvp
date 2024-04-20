@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Supermarket_mvp.Views
 {
-    internal interface IProvidersView
+    internal interface IProductView
     {
-        string ProviderId { get; set; }
-        string ProviderName { get; set; }
-        string ProviderObservation { get; set; }
+        string ProductId { get; set; }
+        string ProductName { get; set; }
+
+        string ProductObservation { get; set; }
+
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
-        bool IsSuccesful { get; set; }
+        bool IsSuccessful { get; set; }
         string Message { get; set; }
 
         event EventHandler SearchEvent;
@@ -23,7 +25,8 @@ namespace Supermarket_mvp.Views
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
 
-        void SetProvidersListBildingSource(BindingSource providersList);
+        void SetProductListBildingSource(BindingSource productList);
         void Show();
+
     }
 }

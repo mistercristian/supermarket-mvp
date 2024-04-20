@@ -1,7 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
-using Supermarket_mvp.Models;
+﻿using Supermarket_mvp.Models;
+using System;
+using System.Collections.Generic;
 using System.Data;
-
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Supermarket_mvp._Repositories
 {
@@ -20,9 +24,10 @@ namespace Supermarket_mvp._Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO Providers VALUES (@name, @observation)";
+                command.CommandText = "INSERT INTO CatMode VALUES (@name,@observation)";
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = categoriaModel.Name;
-                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value = categoriaModel.Observation;
+                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value =
+            categoriaModel.Observation;
                 command.ExecuteNonQuery();
             }
 
@@ -53,8 +58,10 @@ namespace Supermarket_mvp._Repositories
                             SET Cat_Mode_Name = @name, 
                             Cat_Mode_Observation = @observation 
                             WHERE Cat_Mode_Id = @id";
-                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = categoriaModel.Name;
-                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value = categoriaModel.Observation;
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value =
+            categoriaModel.Name;
+                command.Parameters.Add("@observation", SqlDbType.NVarChar).Value =
+            categoriaModel.Observation;
                 command.Parameters.Add("@id", SqlDbType.Int).Value = categoriaModel.Id;
                 command.ExecuteNonQuery();
             }

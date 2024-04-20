@@ -21,46 +21,49 @@ namespace Supermarket_mvp.Views
             AssociateAndRaiseViewEvents();
 
             tabControl1.TabPages.Remove(tabPageProvidersDetail);
+            BtnClose.Click += delegate { this.Close(); };
         }
 
 
-        public string ProviderId 
+        public string ProviderId
         {
             get { return TxtProvidersId.Text; }
             set { TxtProvidersId.Text = value; }
         }
-        public string ProviderName 
+        public string ProviderName
         {
             get { return TxtProvidersName.Text; }
             set { TxtProvidersName.Text = value; }
         }
-        public string ProviderObservation 
+        public string ProviderObservation
         {
             get { return TxtProvidersObservation.Text; }
             set { TxtProvidersObservation.Text = value; }
         }
-        public string SearchValue 
+        public string SearchValue
         {
             get { return TxtSearch.Text; }
             set { TxtSearch.Text = value; }
 
         }
-        public bool IsEdit 
+        public bool IsEdit
         {
             get { return isEdit; }
             set { isEdit = value; }
 
         }
-        public bool IsSuccesful 
+        public bool IsSuccesful
         {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
-        public string Menssage 
+        public string Message
         {
             get { return message; }
             set { message = value; }
         }
+
+        
 
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
@@ -79,6 +82,66 @@ namespace Supermarket_mvp.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+
+            BtnNew.Click += delegate 
+            {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageProvidersList);
+                tabControl1.TabPages.Add(tabPageProvidersDetail);
+                tabPageProvidersDetail.Text = "Add New Provider";
+
+            };
+
+            BtnEdit.Click += delegate 
+            {
+                EditEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageProvidersList);
+                tabControl1.TabPages.Add(tabPageProvidersDetail);
+                tabPageProvidersDetail.Text = "Edit Provider";
+
+            };
+
+            BtnDelete.Click += delegate 
+            {
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+
+                var result = MessageBox.Show(
+                    "Are you sure you want to delete the selected Provider",
+                    "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+
+            };
+
+            BtnSave.Click += delegate 
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+
+                if (isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(tabPageProvidersDetail);
+                    tabControl1.TabPages.Add(tabPageProvidersList);
+                }
+                MessageBox.Show(Message);
+
+            };
+
+            BtnCancel.Click += delegate 
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+
+                tabControl1.TabPages.Remove(tabPageProvidersDetail);
+                tabControl1.TabPages.Add(tabPageProvidersList);
+            };
+
+
 
         }
         public void SetProvidersListBildingSource(BindingSource providersList)
@@ -114,5 +177,9 @@ namespace Supermarket_mvp.Views
             return instance;
         }
 
+        private void ProvidersView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

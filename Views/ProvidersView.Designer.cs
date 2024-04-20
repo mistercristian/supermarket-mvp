@@ -285,8 +285,11 @@
             // 
             TxtProvidersId.Location = new Point(8, 35);
             TxtProvidersId.Name = "TxtProvidersId";
+            TxtProvidersId.ReadOnly = true;
             TxtProvidersId.Size = new Size(263, 27);
             TxtProvidersId.TabIndex = 1;
+            TxtProvidersId.Text = "0";
+            TxtProvidersId.TextAlign = HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -307,6 +310,7 @@
             Controls.Add(panel1);
             Name = "ProvidersView";
             Text = "Providers Management";
+            Load += ProvidersView_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
