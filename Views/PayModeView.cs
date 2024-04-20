@@ -21,12 +21,12 @@ namespace Supermarket_mvp.Views
             get { return TxtPayModeId.Text; }
             set { TxtPayModeId.Text = value; }
         }
-        public string PayModeName 
+        public string PayModeName
         {
             get { return TxtPayModeName.Text; }
             set { TxtPayModeName.Text = value; }
         }
-        public string PayModeObservation 
+        public string PayModeObservation
         {
             get { return TxtPayModeObservation.Text; }
             set { TxtPayModeObservation.Text = value; }
@@ -36,28 +36,20 @@ namespace Supermarket_mvp.Views
             get { return TxtSearch.Text; }
             set { TxtSearch.Text = value; }
         }
-        public bool IsEdit {
+        public bool IsEdit
+        {
             get { return isEdit; }
             set { isEdit = value; }
         }
-        public bool IsSuccessful {
+        public bool IsSuccessful
+        {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
-        public string Message {
+        public string Message
+        {
             get { return message; }
             set { message = value; }
-        }
-
-        public PayModeView()
-        {
-            
-            InitializeComponent();
-            AssociateAndRaiseViewEvents();
-
-            tabControl1.TabPages.Remove(tabPagePayModeDetail);
-
-            BtnClose.Click += delegate { this.Close(); };
         }
 
         public event EventHandler SearchEvent;
@@ -66,6 +58,16 @@ namespace Supermarket_mvp.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+
+        public PayModeView()
+        {
+            InitializeComponent();
+            AssociateAndRaiseViewEvents();
+
+            tabControl1.TabPages.Remove(tabPagePayModeDetail);
+
+            BtnClose.Click += delegate { this.Close(); };
+        }
 
         private void PayModeView_Load(object sender, EventArgs e)
         {
@@ -78,9 +80,9 @@ namespace Supermarket_mvp.Views
         }
         public void SetPayModeListBildingSource(BindingSource payModeList)
         {
-            DgPayMode.DataSource = payModeList;
+            DgPayMode.DataSource = payModeList; 
         }
-       
+
         private static PayModeView instance;
 
         public static PayModeView GetInstance(Form parentContainer)
@@ -103,10 +105,14 @@ namespace Supermarket_mvp.Views
             }
             return instance;
         }
-       
+
         private void AssociateAndRaiseViewEvents()
         {
-            BtnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            
+            BtnSearch.Click += delegate
+            {
+                SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
 
             TxtSearch.KeyDown += (s, e) =>
             {
@@ -115,51 +121,53 @@ namespace Supermarket_mvp.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
-            BtnNew.Click += delegate { 
+
+            BtnNew.Click += delegate {
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
+
                 tabControl1.TabPages.Remove(tabPagePayModeList);
                 tabControl1.TabPages.Add(tabPagePayModeDetail);
-                tabPagePayModeDetail.Text = "Agregar Metodo de Pago";
-             
+                tabPagePayModeDetail.Text = "Add New Pay Mode";
+
             };
-            BtnEdit.Click += delegate { 
+
+            BtnEdit.Click += delegate {
                 EditEvent?.Invoke(this, EventArgs.Empty);
 
                 tabControl1.TabPages.Remove(tabPagePayModeList);
                 tabControl1.TabPages.Add(tabPagePayModeDetail);
-                tabPagePayModeDetail.Text = "Editar Modo de Pago";
+                tabPagePayModeDetail.Text = "Edit Pay Mode";
+
             };
-            BtnDelete.Click += delegate 
-            {
-                var result = MessageBox.Show("Esta seguro que desea borrar el metodo de pago seleccionado",
+            BtnDelete.Click += delegate {
+                var result = MessageBox.Show(
+                    "Are you sure you want to delete the selected Pay Mode",
                     "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes) 
+
+                if (result == DialogResult.Yes)
                 {
-                DeleteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(message);
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
                 }
-                DeleteEvent?.Invoke(this, EventArgs.Empty); 
 
-
-            
             };
-            BtnSave.Click += delegate { 
+            BtnSave.Click += delegate {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
+
                 if (isSuccessful)
                 {
-                    tabControl1.TabPages.Remove(tabPagePayModeList);
-                    tabControl1.TabPages.Add(tabPagePayModeDetail);
+                    tabControl1.TabPages.Remove(tabPagePayModeDetail);
+                    tabControl1.TabPages.Add(tabPagePayModeList);
                 }
                 MessageBox.Show(Message);
             };
-            BtnCancel.Click += delegate 
-            { 
+
+            BtnCancel.Click += delegate {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
 
-                tabControl1.TabPages.Remove(tabPagePayModeList);
-                tabControl1.TabPages.Add(tabPagePayModeDetail);
-
+                tabControl1.TabPages.Remove(tabPagePayModeDetail);
+                tabControl1.TabPages.Add(tabPagePayModeList);
             };
         }
     }

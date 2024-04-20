@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Supermarket_mvp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,7 @@ namespace Supermarket_mvp.Models
         void Add(PayModeModel payModeModel);
         void Edit(PayModeModel payModeModel);
         void Delete(int id);
-
         IEnumerable<PayModeModel> GetAll();
         IEnumerable<PayModeModel> GetByValue(string value);
-
     }
 }
