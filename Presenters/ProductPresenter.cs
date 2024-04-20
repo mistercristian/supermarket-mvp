@@ -15,7 +15,8 @@ namespace Supermarket_mvp.Presenters
         private BindingSource productBindingSource;
         private IEnumerable<ProductModel> productList;
 
-        public ProductPresenter(IProductView view, IProductRepository repository)
+        public ProductPresenter(IProductView view, IProductRepository
+repository)
         {
             this.productBindingSource = new BindingSource();
 
@@ -25,18 +26,19 @@ namespace Supermarket_mvp.Presenters
             this.view.SearchEvent += SearchProduct;
             this.view.AddNewEvent += AddNewProduct;
             this.view.EditEvent += LoadSelectProductToEdit;
-            this.view.DeleteEvent += DeleteSelectedProduct;
+            this.view.DeleteEvent += DeleteSeletedProduct;
             this.view.SaveEvent += SaveProduct;
             this.view.CancelEvent += CancelAction;
 
             this.view.SetProductListBildingSource(productBindingSource);
 
-            LoadAllProductList();
+            loadAllProductList();
 
             this.view.Show();
 
         }
-        private void LoadAllProductList()
+
+        private void loadAllProductList()
         {
             productList = repository.GetAll();
             productBindingSource.DataSource = productList;
@@ -46,7 +48,6 @@ namespace Supermarket_mvp.Presenters
         {
             CleanViewFields();
         }
-
 
         private void SaveProduct(object? sender, EventArgs e)
         {
@@ -62,15 +63,15 @@ namespace Supermarket_mvp.Presenters
                 if (view.IsEdit)
                 {
                     repository.Edit(product);
-                    view.Message = "Provider edited successfuly";
+                    view.Message = "Producto Editada de manera correcta";
                 }
                 else
                 {
                     repository.Add(product);
-                    view.Message = "Provider added successfuly";
+                    view.Message = "Producto agregada de manera correcta";
                 }
                 view.IsSuccessful = true;
-                LoadAllProductList();
+                loadAllProductList();
                 CleanViewFields();
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace Supermarket_mvp.Presenters
                 view.IsSuccessful = false;
                 view.Message = ex.Message;
             }
-
+        
         }
 
         private void CleanViewFields()
@@ -86,53 +87,48 @@ namespace Supermarket_mvp.Presenters
             view.ProductId = "0";
             view.ProductName = "";
             view.ProductObservation = "";
-
         }
 
-        private void DeleteSelectedProduct(object? sender, EventArgs e)
+        private void DeleteSeletedProduct(object? sender, EventArgs e)
         {
             try
             {
+                var product = (ProductModel)productBindingSource.Current;
 
-                var productModel = (ProductModel)productBindingSource.Current;
-
-
-                repository.Delete(productModel.Id);
+                repository.Delete(product.Id);
                 view.IsSuccessful = true;
-                view.Message = "product deleted successfully";
-                LoadAllProductList();
+                view.Message = "Producto eliminado con exito";
+                loadAllProductList();
             }
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "An error ocurred, could not delete product";
+                view.Message = "An error ocurred, could not delete categoria";
             }
-
         }
 
         private void LoadSelectProductToEdit(object? sender, EventArgs e)
         {
             var product = (ProductModel)productBindingSource.Current;
 
-
             view.ProductId = product.Id.ToString();
             view.ProductName = product.Name;
             view.ProductObservation = product.Observation;
 
-
             view.IsEdit = true;
-
         }
 
         private void AddNewProduct(object? sender, EventArgs e)
         {
             view.IsEdit = false;
+
         }
 
         private void SearchProduct(object? sender, EventArgs e)
         {
-            bool EmptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (EmptyValue == false)
+            bool emptyValue = string.IsNullOrEmpty(this.view.SearchValue);
+
+            if (emptyValue == false)
             {
                 productList = repository.GetByValue(this.view.SearchValue);
             }
@@ -142,6 +138,7 @@ namespace Supermarket_mvp.Presenters
             }
             productBindingSource.DataSource = productList;
         }
+
 
 
 

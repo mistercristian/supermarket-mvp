@@ -21,6 +21,8 @@ namespace Supermarket_mvp.Views
             InitializeComponent();
             AssociateAndRaiseViewEvents();
 
+
+            tabControl1.TabPages.Remove(tabPageProductDetail);
             BtnClose.Click += delegate { this.Close(); };
         }
 
@@ -103,7 +105,6 @@ namespace Supermarket_mvp.Views
         private void AssociateAndRaiseViewEvents()
         {
             BtnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-
             TxtSearch.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -112,26 +113,23 @@ namespace Supermarket_mvp.Views
                 }
             };
 
-            BtnNew.Click += delegate
-            {
+            BtnNew.Click += delegate {
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
 
                 tabControl1.TabPages.Remove(tabPageProductList);
                 tabControl1.TabPages.Add(tabPageProductDetail);
-                tabPageProductDetail.Text = "Add New Product";
+                tabPageProductDetail.Text = "Agregar Nuevo Producto";
             };
 
-            BtnEdit.Click += delegate
-
-            {
+            BtnEdit.Click += delegate {
                 EditEvent?.Invoke(this, EventArgs.Empty);
 
                 tabControl1.TabPages.Remove(tabPageProductList);
                 tabControl1.TabPages.Add(tabPageProductDetail);
-                tabPageProductDetail.Text = "Edit Product";
+                tabPageProductDetail.Text = "Editar Producto";
+
             };
-            BtnSave.Click += delegate
-            {
+            BtnSave.Click += delegate {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
 
                 if (isSuccessful)
@@ -140,18 +138,21 @@ namespace Supermarket_mvp.Views
                     tabControl1.TabPages.Add(tabPageProductList);
                 }
                 MessageBox.Show(Message);
+
             };
 
-            BtnCancel.Click += delegate
-            {
+            BtnCancel.Click += delegate {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
+
                 tabControl1.TabPages.Remove(tabPageProductDetail);
                 tabControl1.TabPages.Add(tabPageProductList);
-
             };
-            BtnDelete.Click += delegate
-            {
-                var result = MessageBox.Show("Are you sure you want to delete the selected Product", "Warning",
+            BtnDelete.Click += delegate {
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+
+                var result = MessageBox.Show(
+                    "Esta seguro que desea eliminar el producto seleccionada",
+                    "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
@@ -159,7 +160,9 @@ namespace Supermarket_mvp.Views
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
+
             };
+
 
         }
 

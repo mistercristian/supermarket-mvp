@@ -94,9 +94,9 @@ namespace Supermarket_mvp.Presenters
         {
             try
             {
-                var provider = (CategoriaModel)categoriaBindingSource.Current;
+                var categoria = (CategoriaModel)categoriaBindingSource.Current;
 
-                repository.Delete(provider.Id);
+                repository.Delete(categoria.Id);
                 view.IsSuccessful = true;
                 view.Message = "Categoria eliminada con exito";
                 loadAllCategoriaList();

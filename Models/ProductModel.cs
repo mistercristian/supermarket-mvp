@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Supermarket_mvp.Models
 {
-    [DisplayName("Product Id")]
     internal class ProductModel
     {
+        [DisplayName("Product Id")]
         public int Id { get; set; }
 
         [DisplayName("Product Name")]
-        [Required(ErrorMessage = "Product name is required")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Product name must be between 3 and 50 characters")]
-
+        [Required(ErrorMessage = "El Nombre del Producto es Requerido")]
+        [StringLength(50, MinimumLength = 3,
+            ErrorMessage = "El nombre debe de tener entre 3 y 50 caratcteres")]
         public string Name { get; set; }
 
-        [DisplayName("Observation")]
-        [Required(ErrorMessage = "Product observation is required")]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = "Product observation must be between 3 and 200 characters")]
-
+        [DisplayName("Product Observation")]
+        [Required(ErrorMessage = "L0s Productos son requeridas")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage =
+            "Los product debe de tener entre 3 y 200 caratcteres")]
         public string Observation { get; set; }
 
     }
