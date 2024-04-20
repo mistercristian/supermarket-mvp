@@ -58,18 +58,16 @@ namespace Supermarket_mvp.Presenters
             try
             {
                 new Common.ModelDataValidation().Validate(product);
+
                 if (view.IsEdit)
                 {
-                    repository.edit(product);
-                    view.Message = "Product edited Successfuly";
-
+                    repository.Edit(product);
+                    view.Message = "Provider edited successfuly";
                 }
                 else
-
                 {
                     repository.Add(product);
-                    view.Message = "Product added successfuly";
-
+                    view.Message = "Provider added successfuly";
                 }
                 view.IsSuccessful = true;
                 LoadAllProductList();
@@ -77,7 +75,6 @@ namespace Supermarket_mvp.Presenters
             }
             catch (Exception ex)
             {
-
                 view.IsSuccessful = false;
                 view.Message = ex.Message;
             }
